@@ -7,13 +7,15 @@ math()
 	
 		#Get sub-folder (SUBJECT), textbook url and file name (which is the date of the next lesson).
 	echo "determining subject"
-
-	if [ "$1" == "calc" ]; then
+	
+	case $1 in
+	"calc")
 		SUBJECT="Calculus"
 		BOOK="https://my.classoos.com/viewbook/1504"
 		DATE=$(date -dnext-thursday  +”%d.%m.%Y”)
+		;;
 	
-	elif [ "$1" == "series" ]; then
+	"series")
 		SUBJECT="Series"
 		BOOK="https://my.classoos.com/viewbook/1498"
 
@@ -25,30 +27,35 @@ math()
 		else
 			DATE=$(date -dnext-wednesday +%d.%m.%y)
 		fi
+		;;
 	
-	elif [ "$1" == "trig" ]; then
+	"trig")
 		SUBJECT="Trigonometry"
 		BOOK="https://my.classoos.com/viewbook/1498"
 		DATE=$(date -dnext-monday  +%d.%m.%Y)
+		;;
 	
 	
-	elif [ "$1" == "test" ]; then
+	"test")
 		Subject="Tests"
 		BOOK="https://my.classoos.com/viewbook/1498 https://my.classoos.com/viewbook/1504"
 		
 		if [ -n "$2" ]; then
-			DATE="Test - $(eval "date -dnext-$2 +%d.%m.%y")"
+			DATE="Test - $(eval "date -dnext-$2 +%d.%m.%y ")"
 		else
 			DATE="Test "
 		fi
+		;;
 
 
-	elif [ "$1" == "macros" ]; then
+	"macros")
 		lyx -r "$EXERCISE_PATH/Macros.lyx"
 		shift
-	else
+		;;
+	*)
 		echo "error: no subject specified"
-	fi
+		;;
+	esac
 
 
 	if [ -n "$1" ]; then
