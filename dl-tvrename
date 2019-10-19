@@ -1,0 +1,8 @@
+#!/bin/bash
+for FILE_NAME in $1; do
+	eval "[[ $FILE_NAME =~ $2 ]]"
+	NUM=${BASE_REMATCH[1]}
+	NAME=${BASE_REMATCH[2]}
+	EXT=${BASE_REMATCH[3]}
+	echo "Episode $NUM - $Name.$EXT"
+done

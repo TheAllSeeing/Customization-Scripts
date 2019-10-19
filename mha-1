@@ -1,0 +1,7 @@
+#!/bin/bash
+COUNT=11
+vlc -I rc /home/atai/Videos/TV\ Shows/My\ Hero\ Academia/Season\ 1/Episode\ Playlist.xspf
+for i in `seq 1 $COUNT`;
+do
+	echo next
+done

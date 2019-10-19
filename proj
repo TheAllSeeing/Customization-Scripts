@@ -1,0 +1,38 @@
+#!/bin/bash
+train()
+{
+	google-chrome --new-window "https://docs.google.com/spreadsheets/d/1UvipUZ4DrR6NYZfKazqZwo_GXvNzJacMWW0fHgnCJMM/edit?usp=sharing"  "https://www.sololearn.com/Play/java" &
+	lyx /home/atai/Google\ Drive/FRC/EverGreen\ \#7112/FRC\ 2019-20/צוותים/תוכנה/הכשרות/תוכנית\ הכשרות-2.lyx &
+	# code -r ~/Documents/Test/Hello &
+}
+
+
+
+mac()
+{
+	FOLDER_PATH="/home/atai/Google Drive/FRC/EverGreen #7112/TOOLS/סיכומי הרצאות"
+	FILE_PATH=$(find "$FOLDER_PATH" -type f -name "*lyx" -printf '%T@ %p\n' | sort -n |tail -1 | cut -f2- -d" ")
+	lyx "$FILE_PATH"
+}
+
+lib()
+{
+	code /home/atai/Documents/GitHub/EverLib &
+	code /home/atai/Documents/Everlib-Test &
+	google-chrome --new-window https://github.com/Spikes-2212-Programming-Guild/SpikesLib/tree/master/src/com/spikes2212 https://github.com/wpilibsuite/allwpilib/tree/master/wpilibj/src/main/java/edu/wpi/first/wpilibj https://github.com/EverGreen7112/DeepSpace2019&
+}
+
+app()
+{
+	cd /home/atai/Documents/GitHub/AndroidMemoryGame/AndroidMemoryGame &&
+
+	if [ "$1" == "push" ]; then
+		git push
+	else
+		/opt/android-studio-preview/bin/studio.sh . 
+	fi
+}
+
+
+
+eval "$1 $2"
