@@ -18,8 +18,8 @@ mac()
 lib()
 {
 	code /home/atai/Documents/GitHub/EverLib &
-	code /home/atai/Documents/Everlib-Test &
-	google-chrome --new-window https://github.com/Spikes-2212-Programming-Guild/SpikesLib/tree/master/src/com/spikes2212 https://github.com/wpilibsuite/allwpilib/tree/master/wpilibj/src/main/java/edu/wpi/first/wpilibj https://github.com/EverGreen7112/DeepSpace2019&
+	code /home/atai/Documents/Everlib-Test/Everlib-Test &
+	google-chrome --new-window https://github.com/wpilibsuite/allwpilib/tree/master/wpilibj/src/main/java/edu/wpi/first/wpilibj https://github.com/EverGreen7112/DeepSpace2019/blob/master/DeepSpace7112/src/main/java/frc/robot  https://github.com/EverGreen7112/DeepSpace2019/blob/master/DeepSpace7112/src/main/java/frc/robot/PortMaps/ButtonMap.java
 }
 
 app()

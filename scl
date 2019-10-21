@@ -34,8 +34,6 @@ math()
 		BOOK="https://my.classoos.com/viewbook/1498"
 		DATE=$(date -dnext-monday  +%d.%m.%Y)
 		;;
-	
-	
 	"test")
 		Subject="Tests"
 		BOOK="https://my.classoos.com/viewbook/1498 https://my.classoos.com/viewbook/1504"
@@ -59,7 +57,7 @@ math()
 
 
 	if [ -n "$1" ]; then
-		google-chrome --new-window "https://www.desmos.com/calculator" "learntube.co.il/formula/5.pdf" "https://www.symbolab.com/" "https://www.youtube.com/playlist?list=PLofIPNHWuL8-XfMbL3-atHEyidoc4qi6j" "$BOOK"
+		google-chrome --new-window "https://www.desmos.com/calculator" "learntube.co.il/formula/5.pdf" "https://www.symbolab.com/" "https://music.youtube.com/playlist?list=PLofIPNHWuL8-XfMbL3-atHEyidoc4qi6j" "https://www.mathpapa.com/algebra-calculator.html" "$BOOK"
 		FILE_PATH="$EXERCISE_PATH/$SUBJECT/$DATE.lyx"
 		echo "File: $FILE_PATH"
 		if [ ! -f "$FILE_PATH" ]; then
