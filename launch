@@ -1,0 +1,5 @@
+#!/bin/bash
+
+declare -A launchers=( ["wonderdraft"]="/opt/Wonderdraft/Wonderdraft.x86_64" ["whatsapp"]="/opt/google/chrome/google-chrome --app=https://web.whatsapp.com/" ["jflap"]="JFLAP7.1.jar" ["doom"]="/home/atai/.emacs.d/bin/doom run")
+
+eval "${launchers[$1]}"
