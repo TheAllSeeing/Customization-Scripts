@@ -1,0 +1,6 @@
+#!/bin/bash
+alias wifi="nmcli radio wifi"
+
+wifi off
+sleep 5
+wifi on
