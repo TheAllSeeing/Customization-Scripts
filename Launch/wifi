@@ -1,0 +1,61 @@
+#!/bin/bash
+
+home_wifi="HOTBOX-C80C"
+school_wifi="Teachers"
+hotspot="The Truth"
+
+case $1 in
+    'off')
+        nmcli radio wifi off
+    ;;
+
+    'on')
+        nmcli radio wifi on
+    ;;
+
+    're')
+        nmcli radio wifi off
+        sleep 5
+
+        nmcli radio wifi on
+        sleep 1
+
+        if [ -n "$(nmcli c | grep "$home_wifi")" ]; then
+            nmcli c up "$home_wifi"
+        elif [ -n "$(nmcli c | grep "$school_wifi")" ]; then
+            nmcli c up "$school_wifi"
+        elif [ -n "$(nmcli c | grep "$hotspot")" ]; then
+            nmcli c up "$hotspot"
+                if [ ! "$1" =  "zoom" ]; then
+                   sleep $((10 * 60))
+                   nmcli c down "$hotsot"
+                fi
+        fi
+    ;;
+
+    'c')
+        nmcli radio wifi on
+        case $2 in
+            '-h'|'--home')
+                nmcli c up "$home_wifi"
+            ;;
+
+            '-s'|'--school')
+                nmcli c up "$school_wifi"
+                ;;
+
+            '-p'|'--phone')
+                nmcli c up "$hotspot"
+                if [ ! "$1" =  "zoom" ]; then
+                   sleep $((10 * 60))
+                   nmcli c down "$hotsot"
+                fi
+                ;;
+            *)
+                nmcli c up "$2"
+                ;;
+        esac
+
+    ;;
+
+esac

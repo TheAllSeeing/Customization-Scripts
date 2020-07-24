@@ -1,0 +1,13 @@
+#!/bin/bash
+cd /home/atai/Android/Sdk/tools/
+
+echo "$1"
+
+while [ -n "$1" ]; do
+    ARGS="$ARGS $1"
+    shift
+done
+
+
+
+./emulator $ARGS

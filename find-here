@@ -1,5 +1,0 @@
-#!/bin/bash
-
-eval "find . -maxdepth 1 -name \"*$1*\""
-
-

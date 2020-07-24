@@ -1,0 +1,40 @@
+#!/bin/env bash
+
+todo_file=~/Code-Steel\ \(ORG\)/PLAN.proj/FreeTime.org
+series_folder=~/Code-Azure\ \(REST\)/Media/Videos/Series
+case $1 in
+  aang)
+    season_line="$(awk '/TODO/{ print; exit }' "$todo_file")"
+    echo "Season Line: $season_line"
+    season_title=$(echo "$season_line" | cut -c9-14)
+    echo "Season Title: $season_title"
+    video_folder=$series_folder/Avatar:\ The\ Last\ Airbender/
+    echo "Video Folder $video_folder"
+    season_directory="$(find "$video_folder" -type d | grep "$season_title")"
+    echo "Season Directory: $season_directory"
+    episode_name="$(awk '/*** \[ \] Episode/{ print; exit }' "$todo_file")"
+    echo "Episode Name: $episode_name"
+    episode_num="$(echo "$episode_name" | tail -c11)"
+    echo "Episode Num: $episode_num"
+    file_name="$(find "$season_directory" | grep "$episode_num")"
+    echo "File Name: $file_name"
+    vlc "$file_name"
+    ;;
+  kaguya)
+    series_line_num="$(awk '/Love is War/{print NR; exit}' "$todo_file")" #first find the line where the list start, as to not take episodes from other shows
+    episode_line="$(awk "NR>$series_line_num{print}" $todo_file | awk '/*** \[ \] Episode/{print; exit}')" #the first episode left to watch (marked with the checkbox [ ]) after the line will be the episode we want to play
+    episode_name="$(echo "$episode_line" | tail -c11)" #Strip the line of the markdown junk (**, [  ])
+    series_directory=$series_folder/Love\ is\ War/Season\ 2
+    vlc "$(find "$series_directory" | grep "$episode_name")" #get the episode file (matching its name) from the episodes dircetory, and play it.
+    ;;
+  mha)
+    series_line_num="$(awk '/My Hero Academia/{print NR; exit}' "$todo_file")" #first find the line where the list start, as to not take episodes from other shows
+    episode_line="$(awk "NR>$series_line_num{print}" $todo_file | awk '/*** \[ \] Episode/{print; exit}')" #the first episode left to watch (marked with the checkbox [ ]) after the line will be the episode we want to play
+    episode_name="$(echo "$episode_line" | tail -c11)" #Strip the line of the markdown junk (**, [  ])
+    series_directory=$series_folder/My\ Hero\ Academia
+    vlc "$(find "$series_directory" | grep "$episode_name")" #get the episode file (matching its name) from the episodes dircetory, and play it.
+    ;;
+  *)
+    clementine -l "$(find ~/Videos ~/Music | grep -i "$1")"
+    ;;
+esac

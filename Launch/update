@@ -1,0 +1,18 @@
+#!/bin/env bash
+
+case "$1" in
+    rprt)
+        report="~/Code-Steel (ORG)/FORMALIZE.proj/Progress Reports/$(date +%m\ %B)/$(date +%d,\ %A).lyx"
+        lyx -e pdf "$report"
+        ;;
+    songs)
+        cd ~/Music
+        new_songs="https://www.youtube.com/playlist?list=PLofIPNHWuL887M4D2FSUN1BbxII4DBsN4"
+        youtube-dl -x --audio-format mp3 "$new_songs"
+        ;;
+    laws)
+        find ~/Code-Steel\ \(ORG\)/FORMALIZE.proj -type f  -not -path "*/Progress Reports/*" -a -name "*.lyx" -exec lyx -e pdf {} \;
+        ;;
+    *)
+
+esac
