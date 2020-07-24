@@ -1,0 +1,20 @@
+#!/bin/env bash
+
+ACCESS='/home/atai/Code-Steel (ORG\)/ACCESS.proj'
+case $1 in
+    -l)
+       gsettings set org.gnome.desktop.background picture-uri \'file:///home/atai/Code-Steel\ \(ORG\)/ACCESS.proj/Pictures/Wallpapers/white-stars.png\'
+       gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
+       cat ~/.lyx/light-mode.prf > ~/.lyx/preferences
+       echo "(load-theme 'doom-solarized-light t)" >> ~/.emacs.d/init.el
+       emacsclient -e "(load-theme 'doom-solarized-light t)"
+       ;;
+    -d)
+       gsettings set org.gnome.desktop.background picture-uri \'file:///home/atai/Code-Steel\ \(ORG\)/ACCESS.proj/Pictures/Wallpapers/Stars-Black.png\'
+       gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+       cat ~/.lyx/dark-mode.prf > ~/.lyx/preferences
+       sed -i "/(load-theme 'doom-solarized-light t)/d" ~/.emacs.d/init.el
+       emacsclient -e "(disable-theme 'doom-solarized-light)"
+       emacsclient -e "(load-theme 'doom-one t)"
+        ;;
+esac

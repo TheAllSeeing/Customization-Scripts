@@ -1,7 +1,0 @@
-#!/bin/bash
-if [$1 -eq "new"]
-then
-    google-chrome https://docs.google.com/document/create
-else
-    google-chrome https://docs.google.com
-fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+if [[ $1 == *.desktop ]]; then
+	TYPE=$(grep '^Type' "$1" | tail -1 | sed 's/^Type=//' | sed 's/%.//' | sed 's/^"//g' | sed 's/" *$//g')
+
+	case $TYPE in
+	"Application")
+		`grep '^Exec' "$1" | tail -1 | sed 's/^Exec=//' | sed 's/%.//' | sed 's/^"//g' | sed 's/" *$//g'` ;;
+	"Link")
+		URL=$(grep '^URL' "$1" | tail -1 | sed 's/^URL=//' | sed 's/%.//' | sed 's/^"//g' | sed 's/" *$//g')
+		eval "google-chrome $URL" ;;
+	esac
+
+else
+	declare -A launchers=(
+	["wonderdraft"]="/opt/Wonderdraft/Wonderdraft.x86_64"
+	["whatsapp"]="/opt/google/chrome/google-chrome --app=https://web.whatsapp.com/"
+	["jflap"]="JFLAP7.1.jar"
+	["doom"]="/home/atai/.emacs.d/bin/doom run"
+	["phone"]="emulator -avd \$\(emulator -list-avds | grep \"Pixel_3\"\)"
+	["john"]="emulator -avd \$\(emulator-list-avds | grep \"John\"\)"
+	["aang"]="echo \"\$\(find \"\$\(find ~/Videos/Series/Avatar:\ The\ Last\ Airbender/ -type d | grep \"\$\(awk \'/TODO/\{ print; exit \}\' Calendar/FreeTime.org | cut -c9-14)\"\)\" | grep \"\$\(awk '/*** \\[ \\] Episode/\{ print; exit \}' ~/Calendar/FreeTime.org | tail -c11)\")\""
+	["rule"]=~/.bin/.open_organization_files.sh
+	["calc"]='idle -r Code-Yellow\ \(SCHL\)/Math\ \(MTH\)/CALCULATE.proj/Calculator-Utils.py'
+	)
+	eval "${launchers[$1]}"
+fi
