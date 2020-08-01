@@ -27,7 +27,7 @@ if [ ! -f "$report.lyx" ]; then
             suffix="th"
     esac
 
-    sed -i "$(awk '/June 29/{print NR; exit}' ~/.lyx/templates/Report.lyx) c\ $(date +%A,\ %B\ %d$suffix,\ %Y)" "$report.lyx"
+    sed -i "$(awk '/June 29/{print NR; exit}' ~/.lyx/templates/Report.lyx) c\ $(date +%A,\ %B\ %-d$suffix,\ %Y)" "$report.lyx"
     echo named date
     lyx -e pdf "$report.lyx"
     echo compiled pdf
