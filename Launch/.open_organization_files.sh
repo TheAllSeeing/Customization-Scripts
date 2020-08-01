@@ -7,6 +7,9 @@ home="../../"
 yesterday_output="$home/Code-White (INTRA)/RECORD.rou/Output/$(date -d 'yesterday' +%m\ %B)/$(date -d 'yesterday' +%d,\ %A)"
 
 if [ ! -f "$report.lyx" ]; then
+    if [ ! -d "Progress Reports/$(date +%m\ %B)" ]; then
+       mkdir "Progress $Reports/(date +%m\ %B)"
+    fi
     cat ~/.lyx/templates/Report.lyx > "$report.lyx"
     echo created report
 
