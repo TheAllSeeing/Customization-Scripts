@@ -7,6 +7,9 @@ home="../../"
 yesterday_output="$home/Code-White (INTRA)/RECORD.rou/Output/$(date -d 'yesterday' +%m\ %B)/$(date -d 'yesterday' +%d,\ %A)"
 
 if [ ! -f "$report.lyx" ]; then
+    if [ ! -d "Progress Reports/$(date +%m\ %B)" ]; then
+       mkdir "Progress $Reports/(date +%m\ %B)"
+    fi
     cat ~/.lyx/templates/Report.lyx > "$report.lyx"
     echo created report
 
@@ -24,7 +27,7 @@ if [ ! -f "$report.lyx" ]; then
             suffix="th"
     esac
 
-    sed -i "$(awk '/June 29/{print NR; exit}' ~/.lyx/templates/Report.lyx) c\ $(date +%A,\ %B\ %d$suffix,\ %Y)" "$report.lyx"
+    sed -i "$(awk '/June 29/{print NR; exit}' ~/.lyx/templates/Report.lyx) c\ $(date +%A,\ %B\ %-d$suffix,\ %Y)" "$report.lyx"
     echo named date
     lyx -e pdf "$report.lyx"
     echo compiled pdf
