@@ -1,11 +1,32 @@
 #!/bin/bash
-if [ -f ~/.bin/$1 ]; then
+
+if [ -z "$1" ]; then
+	echo "Please input script name!"
+elif [ -n (which /$1) ]; then
 	echo "Script already exist!"
 	exit 2
 else
-	script_path="~/.bin/$1"
+	folder="Launch"
+	case "$1" in
+	"-s")
+		folder="Shell"
+		shift
+		;;
+	"-l")
+		shift
+		;;
+	"-c")
+		folder="Coding"
+		shift
+		;;
+	"-f")
+		folder="File Management"
+		;;
+	esac
+	
+	script_path="$BIN/$folder/$1"
 	echo $script_path
 	printf "#!/bin/bash\n" > "$script_path"
 	emacs "$sctipt_path"
 	chmod +x "$script_path"
-fi
+fi 

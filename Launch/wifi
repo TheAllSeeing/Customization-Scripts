@@ -38,7 +38,7 @@ case $1 in
         case $2 in
             '-h'|'--home')
                 nmcli c up "$home_wifi"
-            ;;
+      		 ;;
 
             '-s'|'--school')
                 nmcli c up "$school_wifi"
@@ -48,7 +48,7 @@ case $1 in
                 nmcli c up "$hotspot"
                 if [ ! "$1" =  "zoom" ]; then
                    sleep $((10 * 60))
-                   nmcli c down "$hotsot"
+                   nmcli c down "$hotspot"
                 fi
                 ;;
             *)
