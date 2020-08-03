@@ -117,26 +117,104 @@ if ! shopt -oq posix; then
 fi
 
 
+
+. ~/.profile
+
 #CONFIGURATIONS
 . /usr/share/undistract-me/long-running.bash
-notify_when_long_running_commands_finish_install #eval "$(thefuck --alias)"
-
-#PATH ADDITIONS
-export PATH=$PATH:~/bin
-export PATH=$PATH:~/.emacs.d/bin
-
-#FOLDER VARIABLES
-export APPS=/usr/share/applications
-export GITHUB=/home/atai/Documents/GitHub
+notify_when_long_running_commands_finish_install
+eval "$(thefuck --alias)"
+eval "$(hub alias -s)"
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 
 #FILE VARIABLES
 export BASHRC=/home/atai/.bashrc
 export FISHRC=/home/atai/.config/fish/config.fish
+export EMACSRC=~/.emacs.d/init.el
+export DOOMRC=~/.doom.d/init.el
+
 
 #ALIASES
 alias res='ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0'
 alias wonderdraft=/opt/Wonderdraft/Wonderdraft.x86_64
-alias please=sudo
-alias wifi="nmcli radio wifi"
+alias please="sudo"
 alias to-pdf="soffice --headless --convert-to pdf"
 alias resource="source $BASHRC"
+alias open="xdg-open"
+alias del="rmtrash"
+alias edit="emacs"
+alias top="htop"
+alias dangerous_help="mdless '/home/atai/.local/share/omf/themes/dangerous/README.md'"
+alias mv='mv -i'
+alias cp='cp -i'
+
+#FUNCTIONS
+
+function exa() {
+	if [ $PWD == "/home/atai" ]; then
+		if [ -n "$1" ]; then
+			if [ "$1" == "-a" ]; then
+				/usr/bin/exa $@
+			else
+				/usr/bin/exa -I "snap|wpilib|*.lyx~|*.lyx#" $@
+			fi
+		else
+			/usr/bin/exa -I "snap|wpilib|*.lyx~|*.lyx#" $@
+		fi
+	elif [ $PWD == "$MEDIA/Books" ]; then
+		if [ -n "$1" ]; then
+			if [ "$1" == "-a" ]; then
+				/usr/bin/exa $@
+			else
+				/usr/bin/exa -I "metadata*|*.lyx~|*.lyx#" $@
+			fi
+		else
+			/usr/bin/exa -I "metadata*|*.lyx~|*.lyx#" $@
+		fi
+	else
+		if [ -n "$1" ]; then
+			if [ "$1" == "-a" ]; then
+				/usr/bin/exa $@
+			else
+				/usr/bin/exa -I "*.lyx~|*.lyx#" $@
+			fi
+		else
+			/usr/bin/exa -I "*.lyx~|*.lyx#" $@
+		fi
+	fi
+
+}
+
+function ls() {
+	if [ $PWD == "/home/atai" ]; then
+		if [ -n "$2" ]; then
+			if [ $2 == "-a" ]; then
+				/usr/bin/ls $@
+			else
+				/usr/bin/ls -I snap -I wpilib -I "*.lyx~" -I "*.lyx#"  $@
+			fi
+		else
+			/usr/bin/ls -I snap -I wpilib -I "*.lyx~" -I "*.lyx#" $@
+		fi
+	elif [ $PWD == "$MEDIA/Books" ]; then
+		if [ -n "$2" ]; then
+			if [ $2 == "-a" ]; then
+				/usr/bin/ls $@
+			else
+				/usr/bin/ls -I "metadata*" -I "*.lyx~" -I "*.lyx#"  $@
+			fi
+		else
+            /usr/bin/ls -I "metadata*" -I "*.lyx~" -I "*.lyx#"  $@
+		fi
+	else
+		if [ -n "$2" ]; then
+			if [ $2 == "-a" ]; then
+				/usr/bin/ls $@
+			else
+				/usr/bin/ls -I "*.lyx~" -I "*.lyx#"  $@
+			fi
+		else
+			/usr/bin/ls -I "*.lyx~" -I "*.lyx#" $@
+		fi
+	fi
+}

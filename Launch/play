@@ -1,7 +1,7 @@
 #!/bin/env bash
 
-todo_file=~/Code-Steel\ \(ORG\)/PLAN.proj/FreeTime.org
-series_folder=~/Code-Azure\ \(REST\)/Media/Videos/Series
+todo_file=$MEDIA/Tasks.org
+series_folder=$MEDIA/Videos/Series
 case $1 in
   aang)
     season_line="$(awk '/TODO/{ print; exit }' "$todo_file")"
@@ -35,6 +35,6 @@ case $1 in
     vlc "$(find "$series_directory" | grep "$episode_name")" #get the episode file (matching its name) from the episodes dircetory, and play it.
     ;;
   *)
-    clementine -l "$(find ~/Videos ~/Music | grep -i "$1")"
+    clementine -l "$(find $MEDIA/Videos $MEDIA/Music | grep -i "$1")"
     ;;
 esac
