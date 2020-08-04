@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export BIN=~/Code-Orange\ \(TECH\)/AUTOMATE.proj/
-export ARCHIVES=Code-Steel\ \(ORG\)/ARCHIVES.proj
 
 if [[ $1 == *.desktop ]]; then
 	TYPE=$(grep '^Type' "$1" | tail -1 | sed 's/^Type=//' | sed 's/%.//' | sed 's/^"//g' | sed 's/" *$//g')
