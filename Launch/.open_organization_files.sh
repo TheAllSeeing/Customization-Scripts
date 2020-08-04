@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/Code-Steel\ \(ORG\)/FORMALIZE.proj
+cd ~/Code-Steel\ \(ORG\)/FORMALIZE.prj
 
 report="Progress Reports/$(date +%m\ %B)/$(date +%d,\ %A)"
 yesterday_report="Progress Reports/$(date -d 'yesterday' +%m\ %B)/$(date -d 'yesterday' +%d,\ %A)"
