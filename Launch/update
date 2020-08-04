@@ -11,7 +11,7 @@ case "$1" in
         youtube-dl -x --audio-format mp3 "$new_songs"
         ;;
     laws)
-        find $(readlink -f ~/Projects/FORMALIZE.prj) -type f  -not -path "*/Progress Reports/*" -a -name "*.lyx" -exec lyx -e pdf {} \;
+        find "$(readlink -f ~/Projects/LAWBOOK.prj)" -type f  -name "*.lyx" -exec lyx -e pdf {} \;
         ;;
     *)
 

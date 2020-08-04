@@ -1,14 +1,14 @@
 #!/bin/bash
-cd ~/Code-Steel\ \(ORG\)/FORMALIZE.prj
 
-report="Progress Reports/$(date +%m\ %B)/$(date +%d,\ %A)"
-yesterday_report="Progress Reports/$(date -d 'yesterday' +%m\ %B)/$(date -d 'yesterday' +%d,\ %A)"
+report="$REPORT/$(date +%m\ %B)/$(date +%d,\ %A)"
+yesterday_report="$REPORT/$(date -d 'yesterday' +%m\ %B)/$(date -d 'yesterday' +%d,\ %A)"
 home="../../"
 yesterday_output="$home/Code-White (INTRA)/RECORD.rou/Output/$(date -d 'yesterday' +%m\ %B)/$(date -d 'yesterday' +%d,\ %A)"
 
+
 if [ ! -f "$report.lyx" ]; then
-    if [ ! -d "Progress Reports/$(date +%m\ %B)" ]; then
-       mkdir "Progress $Reports/(date +%m\ %B)"
+    if [ ! -d "$REPORT/$(date +%m\ %B)" ]; then
+       mkdir "$REPORT/(date +%m\ %B)"
     fi
     cat ~/.lyx/templates/Report.lyx > "$report.lyx"
     echo created report
@@ -35,5 +35,7 @@ else
     echo file exists
 fi
 
-lyx -r "$report.lyx"  Classify/ObjectClasses.lyx Lawbook/Lawbook.lyx Lawbook/Pending\ Enactment.lyx Lawbook/Pending\ Approval.lyx &
-okular "$yesterday_output.pdf" "$yesterday_report.pdf" "$report.pdf" Classify/ObjectClasses.pdf Lawbook/Lawbook.pdf Lawbook/Pending\ Enactment.pdf Lawbook/Pending\ Approval.pdf &
+cd ~/Code-Steel\ \(ORG\)/LAWBOOK.prj
+
+lyx -r "$report.lyx"  ObjectClasses.lyx Lawbook.lyx Pending\ Enactment.lyx Pending\ Approval.lyx &
+okular "$yesterday_output.pdf" "$yesterday_report.pdf" "$report.pdf" ObjectClasses.pdf Lawbook.pdf Pending\ Enactment.pdf Pending\ Approval.pdf &
