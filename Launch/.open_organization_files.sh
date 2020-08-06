@@ -1,10 +1,10 @@
 #!/bin/bash
-cd ~/Code-Steel\ \(ORG\)/FORMALIZE.prj
 
 report="$REPORT/$(date +%m\ %B)/$(date +%d,\ %A)"
 yesterday_report="$REPORT/$(date -d 'yesterday' +%m\ %B)/$(date -d 'yesterday' +%d,\ %A)"
 home="../../"
 yesterday_output="$home/Code-White (INTRA)/RECORD.rou/Output/$(date -d 'yesterday' +%m\ %B)/$(date -d 'yesterday' +%d,\ %A)"
+
 
 if [ ! -f "$report.lyx" ]; then
     if [ ! -d "$REPORT/$(date +%m\ %B)" ]; then
@@ -34,6 +34,8 @@ if [ ! -f "$report.lyx" ]; then
 else
     echo file exists
 fi
+
+cd ~/Code-Steel\ \(ORG\)/LAWBOOK.prj
 
 lyx -r "$report.lyx"  ObjectClasses.lyx Lawbook.lyx Pending\ Enactment.lyx Pending\ Approval.lyx &
 okular "$yesterday_output.pdf" "$yesterday_report.pdf" "$report.pdf" ObjectClasses.pdf Lawbook.pdf Pending\ Enactment.pdf Pending\ Approval.pdf &
