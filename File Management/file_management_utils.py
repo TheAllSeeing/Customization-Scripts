@@ -121,3 +121,11 @@ find = _wrap_command_with_output('find', seperator='\\n')
 ls = _wrap_command_with_output('ls', seperator='\\n')
 exa = _wrap_command_with_output('exa', seperator='\\n')
 
+if __name__ == '__main__':
+    TEST = False
+    if TEST:
+        os.chdir('/tmp')
+        mkdir('test_py_project')
+        os.chdir('test_py_project')
+    else:
+         os.chdir('/home/atai')
