@@ -58,6 +58,16 @@ def get_aspect_colors(at='HOME'):
 def path_of_dossier(dossier_name):
     return get_dossier_paths()[get_dossier_names().index(dossier_name)]
 
+def get_archive_start(archived_dossier):
+    return archived_dossier.split('/')[-1].split('|')[0].split('-')[0][:4]
+
+def get_archive_end(archived_dossier):
+    if archived_dossier.split('|')[0][-1] == '+':
+            return -1
+    if archived_dossier.split('|')[0][-1] == '-': # if frozen return freezing yeat
+            return archived_dossier.split('/')[-1].split('|')[0].split('-')[-2][:4]
+    return archived_dossier.split('/')[-1].split('|')[0].split('-')[-1][:4]
+
 def escape(path):
     return path.replace(' ', '\ ').replace('&', '\&').replace('(','\(').replace(')', '\)').replace('|', '\|')
 
