@@ -5,41 +5,45 @@ import re
 def var(name):
     return os.environ[name]
 
-def get_project_paths(at='HOME'):
-    return ['/' + path for path in str(sp.check_output('echo ' + escape(var(at)) + '/Code*/*.prj', shell=True))[3:-3].split(' /')]
+def get_dossier_paths(extension='*', at: str='HOME', code: int=0, path_type: int=0) -> list: 
+    # code_0 - ongoing dossiers (main)
+    # code_1 - archive and hold dossiers
+    # code_2 - held dossiers
+    # code_3 - ongoing dossiers' archive
+    # code_4 - archived, complete dossiers.
 
-def get_project_filenames(at='HOME'):
-    index = 4
-    if at == 'DRIVE':
-        index = 7
-    if at == 'PHONE':
-        index = 9
-    return [path.split('/')[index] for path in get_project_paths(at)]
+    # path_type_0 - path
+    # path_type_1 - filename
+    # path_type_2 - name
+    # path_type_3 - aspect
 
-def get_project_names(at='HOME'):
-    return [file[:-4] for file in get_project_filenames(at)]
-
-def get_routine_paths(at='HOME'):
-    return ['/' + path for path in str(sp.check_output('echo ' + escape(var(at)) + '/Code*/*.rou', shell=True))[3:-3].split(' /')]
-
-def get_routine_filenames(at='HOME'):
-    return [path.split('/')[4] for path in  get_routine_paths(at)]
-
-def get_routine_names(at='HOME'):
-    return [file[:-4] for file in get_routine_filenames(at)]
-
-def get_dossier_paths(at='HOME'):
-    return sorted(get_project_paths(at) + get_routine_paths(at))
-
-
-def get_dossier_filenames(at='HOME'):
-    return [path.split('/')[4] for path in get_dossier_paths(at)]
-
-def get_dossier_names(at='HOME'):
-    return [file[:-4] for file in get_dossier_filenames(at)]
-
-def get_aspect_paths(at='HOME'):
+    if path_type == 1:
+        return [path.split('/')[-1] for path in get_dossier_paths(extension, at, code, 0)]
+    if path_type == 2:
+        return [file[:-4] for file in get_dossier_paths(extension, at, code, 1)]
+    if path_type == 3:
+        return [path.split('/')[-2] for path in get_dossier_paths(extension, at, code, 0)]
+        
+    
     working_directory = escape(var(at))
+    if  0 < code <= 4:
+            working_directory += '/' + escape(var('ARCHIVES'))
+            
+    res = find(options=working_directory + '/Code* -maxdepth 1 -name "*.' + extension + '"')
+    if code == 2:
+        return [path for path in res if path.split('|')[0].endswith('-')]
+    if code == 3:
+        return [path for path in res if path.split('|')[0].endswith('+')]
+    if code == 4:
+        return [path for path in res if not path.split('|')[0].endswith('-') and not path.split('|')[0].endswith('+')]
+    return res
+
+
+
+def get_aspect_paths(at='HOME', archive=False):
+    working_directory = escape(var(at))
+    if archive:
+            working_directory += '/' + escape(var('ARCHIVES'))
     return find(options=working_directory + ' -maxdepth 1 -name "Code-*(*)"')
 
 def get_aspect_filenames(at='HOME'):
@@ -55,7 +59,7 @@ def path_of_dossier(dossier_name):
     return get_dossier_paths()[get_dossier_names().index(dossier_name)]
 
 def escape(path):
-    return path.replace(' ', '\ ').replace('&', '\&').replace('(','\(').replace(')', '\)')
+    return path.replace(' ', '\ ').replace('&', '\&').replace('(','\(').replace(')', '\)').replace('|', '\|')
 
 def _wrap_command_with_output(command: str, default_options='', seperator=None) -> callable:
     def res(options=default_options, sudo=False):
